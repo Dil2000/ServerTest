@@ -10,7 +10,7 @@
 	var server = http.createServer(handleRequest);
 
 	server.listen(PORT1,function(){
-		console.log(`Server works  : http://localhost:${PORT}`);
+		console.log(`Server works  : http://localhost:${PORT1}`);
 	});
 
 
@@ -21,7 +21,7 @@
 	var server = http.createServer(handleRequest2);
 
 	server.listen(PORT2,function(){
-		console.log(`Server does not work : http://localhost:${PORT}`);
+		console.log(`Server does not work : http://localhost:${PORT2}`);
 	});
 
 
