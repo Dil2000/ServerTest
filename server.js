@@ -18,9 +18,9 @@
 		res.end('Server does not work' + req.url);
 	}
 
-	var server = http.createServer(handleRequest2);
+	var server2 = http.createServer(handleRequest2);
 
-	server.listen(PORT2,function(){
+	server2.listen(PORT2,function(){
 		console.log(`Server does not work : http://localhost:${PORT2}`);
 	});
 
