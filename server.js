@@ -1,40 +1,30 @@
-// We require/import the HTTP module
+// Dependencies
 var http = require("http");
+var fs = require("fs");
 
-// =====================================================================
+// Set our port to 8080
+var PORT = 8080;
 
-// Then define the ports we want to listen to
-var PORTONE = 7000;
-var PORTTWO = 7500;
+// Create our server
+var server = http.createServer(handleRequest);
 
-// =====================================================================
+// Create a function for handling the requests and responses coming into our server
+function handleRequest(req, res) {
 
-// We need two different functions to handle requests, one for each server.
-function handleRequestOne(request, response) {
-  response.end("You're a JavaScript mastermind!");
+  // Here we use the fs package to read our index.html file
+  fs.readFile(__dirname + "/index.html", function(err, data) {
+
+    // We then respond to the client with the HTML page by specifically telling the browser that we are delivering
+    // an html file.
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(data);
+  });
+
 }
 
-function handleRequestTwo(request, response) {
-  response.end("You smell.");
-}
-
-// =====================================================================
-
-// Create our servers
-var serverOne = http.createServer(handleRequestOne);
-var serverTwo = http.createServer(handleRequestTwo);
-
-// =====================================================================
-
-// Starting our servers
-serverOne.listen(PORTONE, function() {
-
-  // Callback triggered when server is successfully listening. Hurray!
-  console.log("Server listening on: http://localhost:%s", PORTONE);
+// Starts our server
+server.listen(PORT, function() {
+  console.log("Server is listening on PORT: " + PORT);
 });
 
-serverTwo.listen(PORTTWO, function() {
 
-  // Callback triggered when server is successfully listening. Hurray!
-  console.log("Server listening on: http://localhost:%s", PORTTWO);
-});
