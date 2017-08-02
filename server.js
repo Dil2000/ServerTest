@@ -1,27 +1,31 @@
-	var http = require('http');
+// Dependencies
+var http = require("http");
 
-	var PORT1 = 7000;
-	var PORT2 = 7500;
+var PORT = 8080;
 
-	function handleRequest(req,res){
-		res.end('Server works YAY' + req.url);
-	}
+var server = http.createServer(function(req, res) {
 
-	var server = http.createServer(handleRequest);
+  // Saving the request method as a variable.
+  var requestData = "";
 
-	server.listen(PORT1,function(){
-		console.log(`Server works  : http://localhost:${PORT1}`);
-	});
+  // When the server receives data, it will add it to requestData.
+  req.on("data", function(data) {
+    requestData += data;
+    console.log("You just posted some data to the server!");
+    console.log("Your data was " + requestData);
+  });
 
+  // When the request has ended...
+  req.on("end", function() {
+    res.write("<html><head><title>Hello Noder!</title></head><body>");
+    res.write("<h1>Thank You!</h1>");
+    res.write("</body></html>");
+    res.end();
+  });
 
-	function handleRequest2(req,res){
-		res.end('Server does not work' + req.url);
-	}
+});
 
-	var server2 = http.createServer(handleRequest2);
-
-	server2.listen(PORT2,function(){
-		console.log(`Server does not work : http://localhost:${PORT2}`);
-	});
-
-
+// Starts our server.
+server.listen(PORT, function() {
+  console.log("Server listening on: http://localhost:%s", PORT);
+});
